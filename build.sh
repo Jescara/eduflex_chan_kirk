@@ -15,7 +15,7 @@ echo "📂 Unzipping..."
 unzip -q instantclient*.zip -d instantclient
 
 echo "📁 Listing contents of ./instantclient"
-ls -l instantclient/
+ls -l ./instantclient/instantclient_23_8
 
 # Install Node.js dependencies
 echo "📦 Installing dependencies..."
