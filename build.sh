@@ -1,15 +1,13 @@
 #!/bin/bash
+set -e
 
-# Download Oracle Instant Client Basic Lite ZIP
-curl -O https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linux.x64-21.13.0.0.0dbru.zip
+echo "🔽 Downloading Oracle Instant Client..."
+curl -L -o instantclient.zip "https://drive.google.com/uc?export=download&id=1KtPH16pTEPE6j0mV2x2tjgrKAXxHLnWw"
 
-# Unzip it into a known directory
-unzip instantclient-basiclite-linux.x64-21.13.0.0.0dbru.zip -d instantclient
+echo "📦 Unzipping Instant Client..."
+unzip -q instantclient.zip -d instantclient
 
-# Export required environment variables
-export LD_LIBRARY_PATH=$(pwd)/instantclient
-export OCI_LIB_DIR=$(pwd)/instantclient
-export OCI_INC_DIR=$(pwd)/instantclient/sdk/include
-
-# Proceed with app setup
+echo "📦 Installing Node.js dependencies..."
 npm install
+
+echo "✅ Build script finished."
