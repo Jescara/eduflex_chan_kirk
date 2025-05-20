@@ -14,6 +14,9 @@ gdown https://drive.google.com/uc?id=1mtfhy8S5jR_UEQIREAphAgyt9l74bA2u -O instan
 echo "📂 Unzipping..."
 unzip -q instantclient*.zip -d instantclient
 
+echo "📁 Listing contents of ./instantclient"
+ls -l instantclient/
+
 # Install Node.js dependencies
 echo "📦 Installing dependencies..."
 npm install
