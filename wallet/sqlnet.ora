@@ -1,0 +1,2 @@
+WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY = C:\Users\chant\Documents\Semester 202520\ITEC370\final_project_202520\eduflex-main\wallet)))
+SSL_SERVER_DN_MATCH=yes
