@@ -15,13 +15,13 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-// 1. Install dependencies: npm install express dotenv cors
-import express, { json }  from 'express';
+// // 1. Install dependencies: npm install express dotenv cors
+// import express, { json }  from 'express';
 import 'dotenv/config';
 import userRoutes from './routes/user.js';
 import contentRoutes from './routes/content.js';
 
-const app = express();
+// const app = express();
 
 // middleware
 app.use(json());
@@ -32,7 +32,7 @@ app.use('/api', contentRoutes);
 
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`EduFlex Node server running on port ${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`EduFlex Node server running on port ${PORT}`);
+// });
