@@ -6,7 +6,11 @@ async function insertUser(user) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Basic ' + Buffer.from(process.env.ORDS_AUTH).toString('base64') // if needed
+       headers: {
+  'Content-Type': 'application/json',
+  'Authorization': 'Basic ' + Buffer.from(`${ORDS_USER}:${ORDS_PASSWORD}`).toString('base64')
+}
+
       },
       body: JSON.stringify({
         user_id: user.user_id,
