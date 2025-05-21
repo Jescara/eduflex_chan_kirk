@@ -10,8 +10,6 @@ import contentRoutes from './routes/content.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Set Oracle Instant Client library path
-process.env.LD_LIBRARY_PATH = path.join(__dirname, 'instantclient', 'instantclient_23_8');
 
 // Setup Express
 const app = express();
