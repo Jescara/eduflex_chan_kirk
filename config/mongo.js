@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
 const client = new MongoClient(process.env.MONGO_URI);
-const dbName = 'eduflex';
+const dbName = 'edutestflex';
 
 async function getCourseContent(courseId) {
   await client.connect();
