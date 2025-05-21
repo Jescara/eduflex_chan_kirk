@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Content</title>
+</head>
+<body>
+  <h1>Course Content</h1>
+  <div id="content"></div>
+
+  <script>
+    const courseId = 130; // or dynamically from query param
+    fetch(`/api/course-content/${courseId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          const container = document.getElementById('content');
+          data.data.forEach(item => {
+            const p = document.createElement('p');
+            p.textContent = JSON.stringify(item);
+            container.appendChild(p);
+          });
+        } else {
+          console.error(data.message);
+        }
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
