@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 async function insertUser(user) {
   try {
+    const url = `https://ga275da85c7b8a2-eduflexmain.adb.us-chicago-1.oraclecloudapps.com/ords/${process.env.ORDS_USER}/_sdw/users/`;
     const res = await fetch(`${process.env.ORDS_BASE_URL}/users/`, {
       method: 'POST',
       headers: {
