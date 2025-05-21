@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EduFlex Courses</title>
+  <title>Course Content</title>
 </head>
 <body>
-  <h2>All Courses</h2>
+  <h1>Course Content</h1>
+  <div id="content"></div>
 
-  
-  <div id="response"></div>
-<a href='index.html'>Register</a>
   <script>
-  
-      try {
-        const response = await fetch("/api/register", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(data)
-        });
-        const json = await response.json();
-        document.getElementById("response").innerText = json.message || "Success!";
-      } catch (err) {
-        document.getElementById("response").innerText = "Network error.";
-      }
-    });
+    const courseId = 'math101'; // or dynamically from query param
+    fetch(`/api/course-content/${courseId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          const container = document.getElementById('content');
+          data.data.forEach(item => {
+            const p = document.createElement('p');
+            p.textContent = JSON.stringify(item);
+            container.appendChild(p);
+          });
+        } else {
+          console.error(data.message);
+        }
+      })
+      .catch(err => console.error(err));
   </script>
 </body>
 </html>
