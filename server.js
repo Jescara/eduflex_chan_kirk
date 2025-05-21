@@ -27,6 +27,9 @@ app.use('/api', contentRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html')); // ✅ Load your registration page
 });
+app.get('/course', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'course.html'));
+});
 
 // Start server
 app.listen(PORT, () => {
