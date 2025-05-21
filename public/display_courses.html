@@ -8,7 +8,7 @@
   <div id="content"></div>
 
   <script>
-    const courseId = 'math101'; // or dynamically from query param
+    const courseId = 130; // or dynamically from query param
     fetch(`/api/course-content/${courseId}`)
       .then(res => res.json())
       .then(data => {
