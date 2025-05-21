@@ -2,6 +2,9 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 import express from 'express';
+import 'dotenv/config';
+import userRoutes from './routes/user.js';
+import contentRoutes from './routes/content.js';
 
 // Simulate __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -12,11 +15,17 @@ process.env.LD_LIBRARY_PATH = path.join(__dirname, 'instantclient', 'instantclie
 
 // Example Express server (adjust as needed)
 const app = express();
+
+app.use(json());
+app.use(express.static('public'));
+app.use('/api', userRoutes);
+app.use('/api', contentRoutes);
+
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Server is running with Oracle Instant Client!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Server is running with Oracle Instant Client!');
+// });
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
