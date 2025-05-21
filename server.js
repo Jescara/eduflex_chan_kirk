@@ -10,23 +10,27 @@ import contentRoutes from './routes/content.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Set the Oracle Instant Client library path
+// Set Oracle Instant Client library path
 process.env.LD_LIBRARY_PATH = path.join(__dirname, 'instantclient', 'instantclient_23_8');
 
-// Example Express server (adjust as needed)
+// Setup Express
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(json());
-app.use(express.static('public'));
+// Middleware
+app.use(express.json()); // ✅ Fix here
+app.use(express.static(path.join(__dirname, 'public'))); // ✅ Serve static files
+
+// API routes
 app.use('/api', userRoutes);
 app.use('/api', contentRoutes);
 
-const PORT = process.env.PORT || 3000;
+// Fallback route to serve index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html')); // ✅ Load your registration page
+});
 
-// app.get('/', (req, res) => {
-//   res.send('Server is running with Oracle Instant Client!');
-// });
-
+// Start server
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
