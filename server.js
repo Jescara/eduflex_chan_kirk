@@ -1,16 +1,23 @@
-process.env.LD_LIBRARY_PATH = __dirname + '/instantclient/instantclient_23_8';
+// server.js
+import { fileURLToPath } from 'url';
+import path from 'path';
+import express from 'express';
 
-const oracledb = require('oracledb');
-oracledb.initOracleClient({ libDir: './instantclient/instantclient_23_8' });
+// Simulate __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const express = require('express');
+// Set the Oracle Instant Client library path
+process.env.LD_LIBRARY_PATH = path.join(__dirname, 'instantclient', 'instantclient_23_8');
+
+// Example Express server (adjust as needed)
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
-  res.send('Oracle-backed Node.js app is up!');
+app.get('/', (req, res) => {
+  res.send('Server is running with Oracle Instant Client!');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
