@@ -9,8 +9,9 @@ async function insertUser(user) {
     const res = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`
+  'Content-Type': 'application/json',
+  'Authorization': 'Basic ' + Buffer.from(`${process.env.ORDS_USER}:${process.env.ORDS_PASSWORD}`).toString('base64')
+
       },
       body: JSON.stringify({
         user_id: user.user_id,
