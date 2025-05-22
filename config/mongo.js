@@ -15,11 +15,17 @@ async function connectToDatabase() {
   return db;
 }
 
-export async function getCourseContent(courseId) {
-  const db = await connectToDatabase();
+async function getCourseContent(courseId) {
+  const db = await connectToDatabase(); // ✅ Reuse connection
   const collection = db.collection('course_content');
-  return await collection.find({ course_id: courseId }).toArray();
+
+  const numericId = parseInt(courseId, 10); // 👈 Ensure number
+  return await collection.find({ course_id: numericId }).toArray();
 }
+
+export { getCourseContent };
+
+
 
 
 // import { MongoClient } from 'mongodb';
