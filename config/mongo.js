@@ -15,22 +15,22 @@ async function connectToDatabase() {
   return db;
 }
 
-async function getCourseContent(courseId) {
-  const db = await connectToDatabase(); // ✅ Reuse connection
-  const collection = db.collection('course_content');
+// async function getCourseContent(courseId) {
+//   const db = await connectToDatabase(); // ✅ Reuse connection
+//   const collection = db.collection('course_content');
 
-  const numericId = parseInt(courseId, 10); // 👈 Ensure number
-  return await collection.find({ course_id: numericId }).toArray();
-}
+//   const numericId = parseInt(courseId, 10); // 👈 Ensure number
+//   return await collection.find({ course_id: numericId }).toArray();
+// }
 
-async function getAllCourseContent() {
+async function getCourseContent() {
   const db = await connectToDatabase();
   const collection = db.collection('course_content');
   return await collection.find({}).toArray(); // 👈 All docs
 }
 
 // ✅ Export both functions
-export { getCourseContent, getAllCourseContent };
+export { getCourseContent};
 
 
 
