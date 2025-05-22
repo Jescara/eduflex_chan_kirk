@@ -2,12 +2,32 @@
 <html>
 <head>
   <title>Course Content</title>
+  <style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  a {
+    color: #0066cc;
+  }
+
+  h2, h3 {
+    margin-top: 20px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+</style>
+
 </head>
 <body>
   <h1>Course Content</h1>
   <div id="content"></div>
 
- <script>
+<script>
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get('id') || 130;
 
@@ -19,22 +39,58 @@
         if (data.data.length === 0) {
           container.textContent = "No content found for this course.";
         } else {
-          data.data.forEach(item => {
-            const p = document.createElement('p');
-            p.textContent = JSON.stringify(item, null, 2); // Pretty print
-            container.appendChild(p);
+          const course = data.data[0];
+
+          // Course Header
+          const title = document.createElement('h2');
+          title.textContent = `Course: ${course.course_title}`;
+          container.appendChild(title);
+
+          const lecturer = document.createElement('p');
+          lecturer.textContent = `Lecturer ID: ${course.lecturer}`;
+          container.appendChild(lecturer);
+
+          // Lessons
+          const lessonsHeading = document.createElement('h3');
+          lessonsHeading.textContent = "Lessons";
+          container.appendChild(lessonsHeading);
+
+          course.lessons.forEach(lesson => {
+            const lessonDiv = document.createElement('div');
+            lessonDiv.style.marginBottom = '20px';
+
+            lessonDiv.innerHTML = `
+              <strong>${lesson.topic}</strong><br/>
+              ${lesson.content}<br/>
+              Resources: ${lesson.resources.map(r => `<a href="${r}" target="_blank">${r}</a>`).join(', ')}<br/>
+              Duration: ${lesson.duration}
+            `;
+
+            container.appendChild(lessonDiv);
           });
+
+          // Assignments
+          const assignHeading = document.createElement('h3');
+          assignHeading.textContent = "Assignments";
+          container.appendChild(assignHeading);
+
+          const ul = document.createElement('ul');
+          course.assignments.forEach(assignment => {
+            const li = document.createElement('li');
+            li.textContent = assignment.assignment_title;
+            ul.appendChild(li);
+          });
+          container.appendChild(ul);
         }
       } else {
         container.textContent = "Error: " + data.message;
-        console.error(data.message);
       }
     })
     .catch(err => {
       document.getElementById('content').textContent = "Fetch error: " + err;
-      console.error(err);
     });
 </script>
+
 
 </body>
 </html>
