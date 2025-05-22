@@ -23,7 +23,14 @@ async function getCourseContent(courseId) {
   return await collection.find({ course_id: numericId }).toArray();
 }
 
-export { getCourseContent };
+async function getAllCourseContent() {
+  const db = await connectToDatabase();
+  const collection = db.collection('course_content');
+  return await collection.find({}).toArray(); // 👈 All docs
+}
+
+// ✅ Export both functions
+export { getCourseContent, getAllCourseContent };
 
 
 
