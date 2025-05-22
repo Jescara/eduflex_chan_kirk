@@ -19,17 +19,57 @@ async function insertUser(user) {
       })
     });
 
-    const text = await res.text(); // For debugging HTML responses
+    const text = await res.text();
     console.log("🔍 Raw ORDS response:", text);
 
-    const data = JSON.parse(text);
-    console.log("✅ User inserted via ORDS:", data);
+    // Try to parse as JSON only if it's valid
+    let data;
+    try {
+      data = JSON.parse(text);
+      console.log("✅ User inserted via ORDS:", data);
+    } catch (jsonErr) {
+      console.error("❌ ORDS returned non-JSON response (likely HTML error):", text);
+    }
   } catch (err) {
     console.error("❌ Failed to insert user via ORDS:", err);
   }
 }
 
 export default insertUser;
+
+
+// import 'dotenv/config';
+
+// async function insertUser(user) {
+//   try {
+//     const url = `${process.env.ORDS_BASE_URL}/users/`;
+
+//     const res = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'Basic ' + Buffer.from(`${process.env.ORDS_USER}:${process.env.ORDS_PASSWORD}`).toString('base64')
+//       },
+//       body: JSON.stringify({
+//         user_id: user.user_id,
+//         first_name: user.first_name,
+//         last_name: user.last_name,
+//         email: user.email,
+//         role: user.role
+//       })
+//     });
+
+//     const text = await res.text(); // For debugging HTML responses
+//     console.log("🔍 Raw ORDS response:", text);
+
+//     const data = JSON.parse(text);
+//     console.log("✅ User inserted via ORDS:", data);
+//   } catch (err) {
+//     console.error("❌ Failed to insert user via ORDS:", err);
+//   }
+// }
+
+// export default insertUser;
 
 // import 'dotenv/config';
 
