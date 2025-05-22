@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 async function insertUser(user) {
   try {
-    const url = `${process.env.ORDS_BASE_URL}/users`;
+    const url = `${process.env.ORDS_BASE_URL}/users/`;
 
     const res = await fetch(url, {
       method: 'POST',
