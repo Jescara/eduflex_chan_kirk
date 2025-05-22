@@ -7,23 +7,34 @@
   <h1>Course Content</h1>
   <div id="content"></div>
 
-  <script>
-    const courseId = 130; // or dynamically from query param
-    fetch(`/api/course-content/${courseId}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'success') {
-          const container = document.getElementById('content');
+ <script>
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get('id') || 130;
+
+  fetch(`/api/course-content/${courseId}`)
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('content');
+      if (data.status === 'success') {
+        if (data.data.length === 0) {
+          container.textContent = "No content found for this course.";
+        } else {
           data.data.forEach(item => {
             const p = document.createElement('p');
-            p.textContent = JSON.stringify(item);
+            p.textContent = JSON.stringify(item, null, 2); // Pretty print
             container.appendChild(p);
           });
-        } else {
-          console.error(data.message);
         }
-      })
-      .catch(err => console.error(err));
-  </script>
+      } else {
+        container.textContent = "Error: " + data.message;
+        console.error(data.message);
+      }
+    })
+    .catch(err => {
+      document.getElementById('content').textContent = "Fetch error: " + err;
+      console.error(err);
+    });
+</script>
+
 </body>
 </html>
