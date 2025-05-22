@@ -4,7 +4,7 @@ import { getCourseContent } from '../config/mongo.js';
 
 router.get('/course-content', async (req, res) => {
   try {
-    const content = await getAllCourseContent(); // returns all docs
+    const content = await getCourseContent(); // returns all docs
     res.json({ status: 'success', data: content });
   } catch (err) {
     console.error(err);
